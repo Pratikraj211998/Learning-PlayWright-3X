@@ -88,48 +88,9 @@ export default Greeter;                  // module: export, default
 
 ---
 
-## 🔁 How the Parser Treats a Keyword (Pipeline)
-
-```
-  source code
-      │
-      ▼
- ┌────────────────────┐
- │ Tokenizer / Lexer   │  → scans word-by-word, checks each word against
- └────────────────────┘     the reserved-word table (ECMAScript grammar)
-      │
-      ▼
-   Is it a reserved keyword,
-   a strict-mode reserved word,
-   a contextual keyword, or
-   a plain identifier?
-      │
-  ┌───┴────┬─────────────┬───────────────┐
-  ▼         ▼             ▼               ▼
-Keyword   Strict-mode   Contextual      Identifier
-token     reserved      keyword         token
-(if,      (only in      (only in        (console,
-const,    strict/       specific        log, name,
-class)    modules)      position:       greeting)
-                         async, of,
-                         get, set)
-      │
-      ▼
- ┌────────────────────┐
- │  Parser builds AST  │  → each keyword maps to a specific AST node type
- └────────────────────┘     (e.g. `if` → IfStatement, `class` → ClassDeclaration)
-      │
-      ▼
-  Bytecode → Machine Code → CPU execution
-  (see Source_Code_ByteCODE_Binary_IQ.md)
-```
-
----
-
 ## ⚡ TL;DR
 
 - A **keyword** has a fixed grammatical meaning to the JS parser — you can't reuse it as a name.
 - Four tiers: **always-reserved** (`if`, `const`, `class`...), **strict-mode-only reserved** (`let`, `static`, `yield`, `interface`...), **contextual** (`async`, `of`, `get`, `set` — only special in specific spots), and **literals** (`true`, `false`, `null`).
 - `undefined`, `NaN`, `console`, `log` are **not keywords** — just identifiers/global properties, a classic interview gotcha.
 - Modules and classes are always strict mode, so the full strict-mode reserved list quietly applies inside them.
-- The parser resolves keyword-vs-identifier at the **tokenizing stage**, before the AST is even built — see the [Source → Bytecode → Binary](Source_Code_ByteCODE_Binary_IQ.md) pipeline for what happens next.
