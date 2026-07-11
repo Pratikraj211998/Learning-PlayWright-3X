@@ -128,6 +128,34 @@ This is one of the most-asked JS interview questions — `let` creates a **new b
 
 ---
 
+## ❓ Important Interview Questions
+
+**Q1. What is the main difference between `var`, `let`, and `const`?**
+Scope (function vs block), hoisting behavior (auto-initialized vs Temporal Dead Zone), and mutability (redeclarable/reassignable vs not) — see the breakdown table above for the full comparison.
+
+**Q2. What is hoisting?**
+JavaScript's behavior of processing variable and function declarations during a "creation phase," before the code actually executes line by line — the declaration is known to the engine ahead of time, even if not yet usable.
+
+**Q3. What is the Temporal Dead Zone (TDZ)?**
+The period between entering a scope and the actual `let`/`const` declaration line executing, during which the variable exists but accessing it throws a `ReferenceError`. `var` has no TDZ — it's usable immediately as `undefined`.
+
+**Q4. Why does `var` "leak" out of an `if` block but `let` doesn't?**
+Because `var` is function-scoped, not block-scoped — it only respects the boundary of the nearest enclosing function, ignoring `{ }` blocks like `if`, `for`, or `while`.
+
+**Q5. Can you reassign a `const` variable?**
+No — reassigning the binding throws `TypeError: Assignment to constant variable`. But if the value is an object or array, its *contents* can still be mutated (`const obj = {}; obj.x = 1;` is fine).
+
+**Q6. Why does the classic `var` in a `for` loop + `setTimeout` print the same value every time?**
+Because `var` creates one shared binding for the entire loop — by the time the callbacks run, the loop has finished and `i` holds its final value. `let` creates a fresh binding per iteration, so each callback captures its own snapshot.
+
+**Q7. Does `var` attach to the global object?**
+Yes — a top-level `var` declaration becomes a property of `window` (browser) or `global`/`globalThis` (Node). `let` and `const` do not.
+
+**Q8. When should you use `let` over `const`?**
+Only when you know the variable's value needs to be reassigned later (loop counters, accumulators, state that changes). Otherwise, default to `const`.
+
+---
+
 ## ⚡ TL;DR
 
 - **`var`** — function-scoped, hoisted with `undefined`, redeclarable, reassignable, leaks into `window`. Legacy — avoid in new code.

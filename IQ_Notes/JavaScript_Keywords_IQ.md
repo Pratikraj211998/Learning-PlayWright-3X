@@ -88,6 +88,34 @@ export default Greeter;                  // module: export, default
 
 ---
 
+## ❓ Important Interview Questions
+
+**Q1. What is a keyword in JavaScript?**
+A word reserved by the ECMAScript spec that has a fixed grammatical meaning to the parser — it can't be used as a variable, function, or class name.
+
+**Q2. Are `console` and `undefined` keywords?**
+No. Both are common interview trick questions — `console` is a global object identifier, and `undefined` is a global property, not a reserved word. Neither appears in the JS keyword list.
+
+**Q3. What's the difference between a reserved keyword and a contextual keyword?**
+A reserved keyword (`if`, `const`, `class`) is always off-limits as an identifier. A contextual keyword (`async`, `of`, `get`, `set`) only behaves specially in a specific syntax position — outside that position it's a legal identifier.
+
+**Q4. Why is `let` only reserved in strict mode?**
+For backward compatibility — old pre-ES6 scripts may have used `let` as a variable name in non-strict ("sloppy") mode, so the spec couldn't retroactively ban it everywhere without breaking old code.
+
+**Q5. Is `yield` always a reserved keyword?**
+No — it's only reserved inside generator functions (`function*`) or under strict mode. In ordinary sloppy-mode code, `yield` can be used as a normal identifier.
+
+**Q6. Why are classes and modules always strict mode?**
+The spec designers decided new syntax (ES6 classes, ES modules) should default to the safer, more restrictive strict-mode rules, without needing an explicit `"use strict"` — so the full strict-mode reserved word list quietly applies inside them.
+
+**Q7. What happens if you try to use a reserved keyword as a variable name?**
+A `SyntaxError` is thrown at parse time — before any code executes at all, since the parser can't build a valid AST.
+
+**Q8. Give an example of `of` vs `in` as keywords.**
+`for (const item of array)` iterates over **values**; `for (const key in object)` iterates over **enumerable property keys**. Mixing them up is a very common bug.
+
+---
+
 ## ⚡ TL;DR
 
 - A **keyword** has a fixed grammatical meaning to the JS parser — you can't reuse it as a name.

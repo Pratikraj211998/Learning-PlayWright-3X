@@ -90,6 +90,31 @@ node chapter_01_Basic/hellowWorld.js
 
 ---
 
+## ❓ Important Interview Questions
+
+**Q1. What's the difference between source code, bytecode, and machine code?**
+Source code is human-readable text you write. Bytecode is a portable intermediate format produced by a compiler/parser front-end, meant for a VM/interpreter, not the CPU directly. Machine code is raw CPU-specific instructions, the only thing hardware actually executes.
+
+**Q2. Is JavaScript compiled or interpreted?**
+Both, in modern engines like V8 — it's parsed and compiled to bytecode (via Ignition), which is interpreted, and "hot" code paths get further JIT-compiled to optimized machine code (via TurboFan). It's not purely interpreted the way older JS engines worked.
+
+**Q3. Why does bytecode exist instead of compiling straight to machine code?**
+Bytecode is portable across CPU architectures and lets the engine start executing quickly (interpret first) while deciding which code is worth the extra time to optimize into machine code (JIT).
+
+**Q4. Does JavaScript save bytecode to a file, like Java's `.class` files?**
+No — V8 keeps bytecode entirely in memory during execution; nothing is written to disk. Java explicitly persists bytecode as `.class` files that the JVM loads later.
+
+**Q5. What is JIT compilation?**
+"Just-In-Time" compilation — translating bytecode into native machine code *while the program is running*, rather than ahead of time, so the engine can optimize based on real runtime behavior (e.g., a function called thousands of times gets optimized).
+
+**Q6. How does C differ from JavaScript in this pipeline?**
+C is compiled ahead-of-time straight from source to machine code (via `gcc`/`clang`) with no bytecode step and no runtime interpreter — it produces a binary you run directly.
+
+**Q7. Is machine code portable across different computers?**
+No — machine code is tied to a specific CPU architecture (x86_64, arm64, etc.). Source code and bytecode are portable; machine code is not.
+
+---
+
 ## ⚡ TL;DR
 
 - **Source code** → what *you* write and read (`hellowWorld.js`). Portable, human-friendly, means nothing to a CPU on its own.
