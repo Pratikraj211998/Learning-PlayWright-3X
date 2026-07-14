@@ -29,8 +29,11 @@ Operators perform actions on values (**operands**) — arithmetic, comparison, l
 - `==` (loose equality) performs **type coercion** before comparing; `===` (strict equality) compares value **and** type with no coercion.
 - `&&` and `||` **short-circuit** — they stop evaluating as soon as the result is determined, and return one of the actual operand values (not always `true`/`false`).
 - `??` only falls back when the left side is exactly `null` or `undefined` — unlike `||`, it does not treat `0`, `""`, or `false` as reasons to fall back.
-- Operator **precedence** determines evaluation order when operators are mixed (e.g. `*`/`/` before `+`/`-`), and can be overridden with `()`.
-- `+` triggers **string concatenation** if either operand is a string; all other arithmetic operators (`-`, `*`, `/`) force both operands to numbers.
+- Operator **precedence** determines evaluation order when operators are mixed — parentheses first, then exponentiation (`**`), then `*`/`/`/`%`, then `+`/`-` (PEMDAS/BODMAS order), and can always be overridden with `()`.
+- `+` triggers **string concatenation** if either operand is a string; all other arithmetic operators (`-`, `*`, `/`, `%`) force both operands to numbers.
+- **Postfix (`a++`, `a--`)** returns the **original** value, then updates the variable. **Prefix (`++a`, `--a`)** updates the variable first, then returns the **new** value.
+- **Unary `+`** converts its operand to a number (`+true` → `1`, `+"5"` → `5`). **Unary `-`** does the same conversion and negates it (`-"5"` → `-5`).
+- Compound assignment operators (`+=`, `-=`, `*=`, `/=`, `%=`, `&&=`, `||=`, `??=`) work on any data type — numbers, strings, object properties, array elements, booleans, even symbol-keyed properties — not just plain numeric variables.
 
 ---
 
@@ -43,6 +46,11 @@ Operators perform actions on values (**operands**) — arithmetic, comparison, l
 - **`NaN == NaN` → `false`** — even loose equality can't make `NaN` equal itself.
 - **`0 ?? "default"` → `0`**, but **`0 || "default"` → `"default"`** — `??` only cares about `null`/`undefined`, `||` cares about *any* falsy value.
 - **`typeof NaN === "number"`** and **`typeof (1/0) === "number"`** (`Infinity`) — dividing by zero doesn't throw in JS, it returns `Infinity`.
+- **Division-by-zero results depend on the sign**: `5 / 0` → `Infinity`, `-5 / 0` → `-Infinity`, `0 / 0` → `NaN`.
+- **Modulus keeps the sign of the dividend (left operand)**: `-10 % 3` → `-1`, but `10 % -3` → `1` — the sign follows the number being divided, not the divisor.
+- **`x + true` → `x + 1`, `x + false` → `x + 0`, `x + null` → `x + 0`, `x + undefined` → `NaN`** — `+` converts booleans and `null` to numbers, but `undefined` always poisons the result to `NaN`.
+- **Transitivity breaks with `==`**: `"" == 0` → `true`, `"0" == 0` → `true`, but `"" == "0"` → `false` — `""` and `"0"` both loosely equal `0` through separate coercion paths, yet aren't loosely equal to *each other*. `===` avoids this entirely (all three comparisons are `false`).
+- **`null == 0` → `false`, but `null >= 0` → `true`** — `==` special-cases `null` to only equal `undefined`/`null`, while relational operators (`>=`, `>`, `<`, `<=`) coerce `null` to `0` first. This means `null == 0 || null > 0` is `false`, even though `null >= 0` is `true` — a genuinely confusing edge case.
 - **`a?.b?.c`** returns `undefined` (not an error) if `a` or `a.b` is `null`/`undefined`, instead of throwing `Cannot read property 'c' of undefined`.
 
 ---
@@ -53,16 +61,50 @@ Operators perform actions on values (**operands**) — arithmetic, comparison, l
 // Arithmetic
 console.log(10 % 3);      // 1  — remainder
 console.log(2 ** 3);       // 8  — exponentiation
+console.log(-10 % 3);       // -1 — modulus keeps the sign of the dividend
+console.log(10 % -3);        // 1  — same rule, opposite sign
+
+// Increment/Decrement — postfix vs prefix
+let a = 10;
+console.log(a++); // 10 — returns ORIGINAL value, then a becomes 11
+console.log(a);    // 11
+console.log(++a);   // 12 — increments FIRST, then returns the new value
+
+// Unary +/-
+console.log(+true);   // 1  — converts to number
+console.log(+"5");     // 5
+console.log(-"5");      // -5 — converts to number, then negates
+
+// Compound assignment — works on strings, objects, arrays, booleans
+let str = "Hello";
+str += " World";           // "Hello World"
+let obj = { count: 1 };
+obj.count += 3;             // { count: 4 }
+let arr = [1, 2, 3];
+arr[0] += 5;                  // [6, 2, 3]
+let flag = true;
+flag &&= false;                // false — logical AND-assign
 
 // String coercion gotchas
 console.log("5" + 3);       // "53"  — string concatenation
 console.log("5" - 3);        // 2     — numeric subtraction, "5" coerced to 5
+console.log(5 + null);        // 5    — null coerces to 0
+console.log(5 + undefined);    // NaN  — undefined always poisons to NaN
 
 // Comparison
 console.log(0 == "0");        // true  — loose equality coerces types
 console.log(0 === "0");        // false — strict equality checks type too
 console.log(null == undefined); // true
 console.log(null === undefined); // false
+
+// Confusing comparisons — transitivity breaks with ==
+console.log("" == 0);    // true
+console.log("0" == 0);   // true
+console.log("" == "0");  // false — "" and "0" are not loosely equal to EACH OTHER
+
+// null vs relational operators
+console.log(null == 0);  // false — == only ever treats null as equal to undefined
+console.log(null >= 0);   // true  — >= coerces null to 0 first
 
 // Logical short-circuiting
 const user = null;
@@ -120,6 +162,21 @@ It returns `"number"` — the result is `Infinity`. Unlike many languages, JS's 
 **Q9. How would you safely default a value that could legitimately be `0`?**
 Use `??` instead of `||`: `const qty = input ?? 10;` keeps `0` as `0`, whereas `input || 10` would incorrectly replace a real `0` with `10`.
 
+**Q10. What's the difference between `a++` and `++a`?**
+`a++` (postfix) returns `a`'s current value first, then increments it. `++a` (prefix) increments `a` first, then returns the updated value. Both end with the same final value of `a` — they only differ in what the expression itself evaluates to.
+
+**Q11. What does the modulus operator return for negative numbers?**
+The result takes the sign of the **dividend** (left operand), not the divisor: `-10 % 3` is `-1`, while `10 % -3` is `1`.
+
+**Q12. Why does `"" == 0` and `"0" == 0` both return `true`, but `"" == "0"` returns `false`?**
+Each comparison against `0` triggers a separate string-to-number coercion (`""` → `0`, `"0"` → `0`), so both equal `0`. But `"" == "0"` compares two strings directly with no numeric coercion involved, and `""` simply isn't the same string as `"0"`. This breaks the usual assumption that equality is transitive — another reason to prefer `===`.
+
+**Q13. Why does `null == 0` return `false` but `null >= 0` return `true`?**
+`==` has a special spec rule that makes `null` loosely equal to `undefined` and nothing else — it's never coerced to `0` for `==`. Relational operators (`>=`, `>`, `<`, `<=`), however, do coerce `null` to `0` first, which is why `null >= 0` passes even though `null == 0` fails.
+
+**Q14. What does `x + undefined` evaluate to, and why?**
+`NaN` — unlike `null` (which coerces to `0`) or booleans (which coerce to `1`/`0`), `undefined` converts to `NaN` in numeric contexts, and any arithmetic involving `NaN` produces `NaN`.
+
 ---
 
 ## ⚡ TL;DR
@@ -130,3 +187,7 @@ Use `??` instead of `||`: `const qty = input ?? 10;` keeps `0` as `0`, whereas `
 - **`??`** only falls back on `null`/`undefined`; **`||`** falls back on any falsy value — pick based on whether `0`/`""`/`false` should count as "empty."
 - **`?.`** prevents crashes when accessing deeply nested, possibly-missing properties.
 - **Spread** expands, **rest** collects — same `...` syntax, opposite direction, determined by context.
+- **Postfix (`a++`)** returns the old value then updates; **prefix (`++a`)** updates then returns the new value.
+- **Modulus sign** follows the dividend: `-10 % 3 → -1`, `10 % -3 → 1`.
+- `null` coerces to `0` in arithmetic and relational comparisons, but `== 0` still fails for `null` — a spec-level special case. `undefined` always coerces to `NaN`.
+- Equality via `==` is **not transitive**: `"" == 0` and `"0" == 0` are both `true`, yet `"" == "0"` is `false` — one more reason to default to `===`.
