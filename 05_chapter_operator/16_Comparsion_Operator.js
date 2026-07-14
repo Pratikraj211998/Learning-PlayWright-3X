@@ -26,10 +26,10 @@ console.log(a >= b); // false
 console.log(a <= b); // true
 
 // tricky example of comparsion operator
-// console.log(5 == "5"); // lose couple comparsion , value ..output true
-// console.log(5 === "5"); // strict comparsion , value and type..output false
-// console.log(5 != "5"); // lose couple comparsion , value ..output false
-// console.log(5 !== "5"); // strict comparsion , value and type..output true
+console.log(5 == "5"); // lose couple comparsion , value ..output true
+console.log(5 === "5"); // strict comparsion , value and type..output false
+console.log(5 != "5"); // lose couple comparsion , value ..output false
+console.log(5 !== "5"); // strict comparsion , value and type..output true
 
 // === Strict check we will check for both the datatype and value
 // == Lose check we will check either value or data type.

@@ -17,6 +17,6 @@ console.log("0" == 0);       // true   → "0" coerced to Number → 0
 console.log("" == "0");      // false  → both strings, compared as-is
 
 // === fixes it
-console.log("" === 0);       // false
-console.log("0" === 0);      // false
-console.log("" === "0");     // false
+console.log("" === 0);       // false - "" is string, 0 is number
+console.log("0" === 0);      // false -"0" is string, 0 is number
+console.log("" === "0");     // false -"" and "0" are both strings

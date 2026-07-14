@@ -45,7 +45,51 @@ class MyClass {}
 // 10. JavaScript has a function type, which is a special kind of object that can be called to perform a specific task.
 // 11. JavaScript has a class type, which is a blueprint for creating objects with shared properties and methods.   
 
+
 // Note: In JavaScript, all data types are objects except for the primitive types (number, string, boolean, null, undefined, symbol, and bigint). This means that you can use methods and properties on objects, but not on primitive types. However, JavaScript automatically wraps primitive types in their corresponding object wrappers when you try to access methods or properties on them. For example, when you call a method on a string primitive, JavaScript automatically creates a String object to handle the method call.
+// object data type
+// exple of object data type
+let person = {
+  name: "John",
+  age: 30,
+  isActive: true,
+  greet: function() {
+    console.log("Hello, my name is " + this.name);
+  }
+};
+
+console.log(person.name); // Output: John
+console.log(person.age); // Output: 30
+console.log(person.isActive); // Output: true
+person.greet(); // Output: Hello, my name is John
+
+// array data type
+// exple of array data type
+let numbers = [1, 2, 3, 4, 5];
+console.log(numbers[0]); // Output: 1
+console.log(numbers.length); // Output: 5
+
+// function data type
+// exple of function data type
+function add(a, b) {
+  return a + b;
+}
+console.log(add(2, 3)); // Output: 5
+
+// class data type
+// exple of class data type
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    console.log(this.name + " makes a sound.");
+  }
+}
+
+let dog = new Animal("Dog");
+dog.speak(); // Output: Dog makes a sound.  
+
 
 // Note: JavaScript is a loosely typed language, which means that you can change the data type of a variable by assigning a value of a different type to it. For example, you can assign a number to a variable and then later assign a string to the same variable. This flexibility can lead to unexpected behavior if not managed carefully.
 

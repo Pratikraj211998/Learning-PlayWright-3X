@@ -31,7 +31,7 @@ console.log(str); // Output: "Hello World"
 
 // Example of using assignment operators with objects
 let obj = { a: 1, b: 2 };
-obj.a += 3; // Equivalent to obj.a = obj.a + 3
+obj.a += 3; // Equivalent to obj.a = obj.a + 3 //output: 4
 console.log(obj); // Output: { a: 4, b: 2 }     
 
 // Example of using assignment operators with arrays
