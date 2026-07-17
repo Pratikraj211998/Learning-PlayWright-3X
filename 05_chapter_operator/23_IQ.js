@@ -24,3 +24,4 @@ console.log(`What is the SLA time ? - ${sla}`);
 let condition = true;
 let isSKMale = condition ? true : false;
 console.log(isSKMale);
+// test
