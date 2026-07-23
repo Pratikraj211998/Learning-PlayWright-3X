@@ -43,12 +43,16 @@
 
     let bol=Symbol("sign");
     console.log(typeof(bol));
-    
+
 
 
 // Q4. Write two variables that look equal but are actually different types
 //     (e.g. a number and a string version of the same number).
 //     Prove they're different types using typeof.
+        let num=5
+        let str="5"
+
+        console.log(num===str);
 
 
 // Q5. Create an object `{ a: 1 }` and a copy of it using `= ` (not spread).
