@@ -1,0 +1,57 @@
+// ==========================================
+// Practice Questions — Set 3: Loops
+// Ordered from simple to hard.
+// Solve each question below its comment block.
+// ==========================================
+
+// Q1. Write a `for` loop that prints only the even numbers from 1 to 20.
+    for (let i = 1; i <= 20; i++) {
+        if (i % 2 === 0) {
+            console.log(i);
+        }
+    }
+
+
+// Q2. Write a `while` loop that sums numbers from 1 to 100 and logs the total.
+    let i = 1;
+    let sum = 0;
+    while (i <= 100) {
+        sum += i;
+        i++;
+    }
+    console.log(sum);
+
+
+// Q3. Write a `do...while` loop that runs at least once even when the starting
+//     condition is already false. Explain why do-while guarantees this.
+    let count = 10;
+    do {
+        console.log(count); // logs 10, even though 10 < 5 is already false
+        count++;
+    } while (count < 5);
+    
+    
+
+// Q4. Use `break` inside a `for` loop to stop as soon as you find the first
+//     number divisible by 7 in a range of 1-50.
+    for (let i = 1; i <= 50; i++) {
+        if (i % 7 === 0) {
+            console.log(i);
+            break;
+        }
+    }
+
+
+// Q5. Use `continue` inside a `for` loop to skip and NOT print multiples of 3
+//     while looping from 1 to 20.
+
+
+// Q6. Write a nested loop to print this pattern using `*`:
+//     *
+//     **
+//     ***
+//     ****
+//     *****
+
+
+// Q7. Write a nested `for` loop that prints a 5x5 multiplication table.
