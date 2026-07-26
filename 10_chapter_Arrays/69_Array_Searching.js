@@ -13,3 +13,15 @@ results.lastIndexOf("fail"); // 4 - scans backward, finds "fail" at index 4 firs
 
 // includes — returns boolean
 results.includes("error"); // true - just checks presence, doesn't tell you WHERE (use indexOf/findIndex for that)
+
+
+//practics
+console.log("practics");
+
+
+let res =["pass","fail","pass","error","fail"];
+console.log(res.indexOf("fail"));
+
+console.log(res.lastIndexOf("fail"));
+
+console.log(res.includes("error"));

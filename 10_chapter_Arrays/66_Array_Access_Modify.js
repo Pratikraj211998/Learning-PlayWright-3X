@@ -17,3 +17,16 @@ console.log(statuses);
 
 // Length
 console.log(statuses.length);
+
+
+//practics
+console.log("practics"
+)
+
+let cat=["pass","fails","skips"];
+console.log(cat[0]);
+console.log(cat.length);
+
+cat[1]="block"
+
+console.log(cat);

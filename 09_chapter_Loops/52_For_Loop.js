@@ -11,8 +11,7 @@ for(let i =0; i <10; i++){
 }
 
 
-
-// AI notes_________________________________________________
+// notes_________________________________________________
 // for loop in java script
 
 // Syntax: for (INIT; CONDITION; UPDATE) { ...body }

@@ -19,7 +19,7 @@ let i = 0;
 do {
   console.log("basic:", i); // 0, 1, 2
   i++;
-} while (i < 3);
+} while (i < 5);
 
 // 2. Condition false from the start - body still runs once
 let count = 10;

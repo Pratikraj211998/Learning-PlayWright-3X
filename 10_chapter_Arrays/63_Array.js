@@ -10,6 +10,22 @@ console.log(browsers[-1]); // undefined
 console.log(browsers.at(0));
 
 
+// practics
+
+let name=[];
+let pratiksha=["cute","smart","intiligent","careing"]
+console.log(pratiksha);
+console.log(pratiksha[1]);
+console.log(pratiksha.at(-1));
+
+
+
+
+
+
+
+
+
 
 // notes_________________________________________________
 // Arrays in java script
@@ -23,6 +39,13 @@ let numbers = [1, 2, 3, 4, 5];
 let mixed = [1, "two", true, null, { key: "value" }]; // arrays can hold mixed types
 let fromConstructor = new Array(3); // creates an array with length 3, all slots empty
 console.log(fromConstructor.length); // 3
+//1.practics
+console.log("practics 1");
+ let empty2=[];
+ let num=[1,2,3,4,5,6];
+ let mix=["pratik","pratiksha",4 ,6 ,0.6 ,true,null];
+ let newarray =new Array();
+ console.log(newarray.length);
 
 // 2. Accessing elements - index-based, zero-indexed
 console.log(numbers[0]); // 1 (first element)
@@ -30,12 +53,22 @@ console.log(numbers[numbers.length - 1]); // 5 (last element, old-school way)
 console.log(numbers.at(-1)); // 5 (last element, modern way - supports negative indices)
 console.log(numbers[10]); // undefined - out-of-range index doesn't throw
 
+// 2.practics
+console.log("practics 2");
+console.log(num[0]);
+console.log(num.at(-1));
+console.log(num[10]);
+
+
 // 3. Length
 console.log(numbers.length); // 5
 numbers.length = 3; // truncates the array
 console.log(numbers); // [1, 2, 3]
 numbers.length = 5; // extends it - new slots are "empty" (not undefined, but behave like it)
 console.log(numbers); // [1, 2, 3, empty x2]
+// 3.practics
+console.log("practics 3 lenght");
+console.log(num.length);
 
 // 4. Adding / removing elements
 let stack = [1, 2, 3];
@@ -45,6 +78,15 @@ stack.unshift(0); // adds to the start -> [0, 1, 2, 3]
 stack.shift(); // removes from the start -> [1, 2, 3]
 console.log(stack); // [1, 2, 3]
 
+// 4.practics
+    console.log("practics 4adding and removing");
+    let random=[1,3,5,7,4,8];
+    random.push(11);
+    random.pop();
+    random.unshift(66);
+    random.shift();
+    console.log(random);
+    
 // 5. Checking if something is an array
 console.log(Array.isArray(stack)); // true
 console.log(typeof stack); // "object" - typeof can't distinguish arrays from plain objects

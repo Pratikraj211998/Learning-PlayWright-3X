@@ -8,3 +8,59 @@ switch (status) {
         console.log("0 matched");
         break;
 }
+
+
+//practics
+switch ("apple") {
+  case "apple": console.log("apple");   // no break!
+  case "banana": console.log("banana"); break;
+}
+// logs both "apple" AND "banana" — the missing break lets it fall through
+
+
+// Strict comparison proof
+switch ("5") {
+  case 5: console.log("number 5"); break;
+  case "5": console.log("string '5'"); break;
+}
+// "string '5'" — proves switch uses === , not ==
+
+let score=82;
+
+switch(true){
+    case(score>80):
+        console.log("A");
+        break
+    case(score>70):
+        console.log("B");
+        break   
+    default:
+        console.log("c");
+
+}
+
+let vehicleType = "car";
+let vehicleBrand = "Tesla";
+
+switch(vehicleType){
+    case "car":
+        switch(vehicleBrand){
+            case "Tesla":
+                console.log("its car tesla");
+                break
+            case "honda":
+                console.log("its car honda");
+        }
+        break
+    case "bike":
+        switch(vehicleBrand){
+            case "Tesla":
+                console.log("its bike tesla");
+                break
+            case "honda":
+                console.log("its bike  honda");
+        }
+        break
+    default:
+        console.log("no found ")
+}

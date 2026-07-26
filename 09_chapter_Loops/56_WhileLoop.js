@@ -4,8 +4,6 @@ while(j<10){
     j++
 }
 
-//
-
 
 
 // notes_________________________________________________
@@ -47,3 +45,10 @@ while (true) {
 // Note: forgetting to update the variable used in the condition (e.g. forgetting `i++`)
 // causes an infinite loop - always make sure something inside the body moves the
 // condition toward false.
+
+
+for (let row = 1; row <= 2; row++) {
+  for (let col = 1; col <= 2; col++) {
+    console.log(`row ${row} x col ${col} = ${row * col}`);
+  }
+}

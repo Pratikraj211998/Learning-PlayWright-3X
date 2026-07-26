@@ -11,3 +11,9 @@ while (modi <= 20) {
     modi++;
 
 }
+
+// let pratiksha=30;
+// while(pratiksha<25){
+//     console.log("pratiksha will go goa");
+//     pratiksha++
+// }

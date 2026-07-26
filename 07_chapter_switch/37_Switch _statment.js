@@ -249,3 +249,5 @@ switch (vehicleType) {
 // 6. switch(true) lets you check ranges/conditions like if/else if.
 // 7. Wrap case bodies in { } if you need block-scoped variables per case.
 // 8. switch statements can be nested just like if/else.
+
+
