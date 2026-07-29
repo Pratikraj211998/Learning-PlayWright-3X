@@ -44,6 +44,12 @@
 
 // Q5. Use `continue` inside a `for` loop to skip and NOT print multiples of 3
 //     while looping from 1 to 20.
+    for (let i = 1; i <= 20; i++) {
+        if (i % 3 === 0) {
+            continue;
+        }
+        console.log(i);
+    }
 
 
 // Q6. Write a nested loop to print this pattern using `*`:
@@ -52,6 +58,20 @@
 //     ***
 //     ****
 //     *****
+    for (let row = 1; row <= 5; row++) {
+        let line = "";
+        for (let col = 1; col <= row; col++) {
+            line += "*";
+        }
+        console.log(line);
+    }
 
 
 // Q7. Write a nested `for` loop that prints a 5x5 multiplication table.
+    for (let row = 1; row <= 5; row++) {
+        let line = "";
+        for (let col = 1; col <= 5; col++) {
+            line += (row * col) + "\t";
+        }
+        console.log(line);
+    }
