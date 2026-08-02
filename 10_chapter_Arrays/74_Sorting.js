@@ -19,3 +19,8 @@ nums.sort((a,b) => b-a); // Desc
 console.log(nums);
 nums.reverse();//rev
 console.log(nums);
+
+console.log("practics");
+
+
+let 

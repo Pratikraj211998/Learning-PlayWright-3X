@@ -10,3 +10,16 @@ console.log(grades);
 
 let passing = scores.filter(s => s >= 70);
 console.log(passing);
+
+
+console.log("practices");
+
+
+let scoreee=[32,43,56,54,76,54];
+
+let gradesss =scoreee.map(a => a>40 ? "pass": "fail");
+console.log(gradesss);
+
+let pass =scoreee.filter(g => g >=40);
+console.log(pass);
+
