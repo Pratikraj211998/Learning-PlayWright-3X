@@ -147,6 +147,139 @@ console.log(getCodes());
 
 ---
 
+## 🔒 Function Scope
+
+Scope determines **where** a variable is visible/accessible. In JavaScript, scope is **lexical** — determined by where functions and blocks are physically written in the code, not by how/where they're called.
+
+### 📏 Rules
+
+- A function can access variables from its **own scope** and any **enclosing (outer) scope** — but not the reverse.
+- An outer function **cannot** access variables declared inside an inner function.
+- Nested functions form a **scope chain**: the engine looks for a variable in the current scope first, then walks outward through each enclosing scope, up to global.
+- Global-scope variables are accessible everywhere, including deeply nested functions.
+
+### ⚠️ Exceptions & Gotchas
+
+- **Trying to access an inner function's variable from outside it throws a `ReferenceError`** — scope only flows outward-to-inward for *reading*, never inward-to-outward:
+  ```js
+  function outer() {
+    let x = 10;
+    function inner() {
+      let y = 20;
+      console.log(x); // ✅ inner can read outer's x
+    }
+    inner();
+    // console.log(y); // ❌ ReferenceError — outer cannot read inner's y
+  }
+  ```
+- Variables with the **same name at different scope levels** don't conflict — the innermost one simply shadows the outer one within its own scope, without altering the outer variable.
+
+### 🔍 Walkthrough
+
+```js
+let env = "staging"; // global scope
+
+function setupConfig() {
+  let timeout = 3000; // local (function) scope
+  console.log(env);     // ✅ can access global
+  console.log(timeout);  // ✅ can access local
+}
+
+setupConfig();
+console.log(env); // ✅ still accessible globally
+// console.log(timeout); // ❌ ReferenceError — not accessible outside the function
+```
+
+---
+
+## 🔒 Closures
+
+A **closure** is a function that "remembers" the variables from its outer (enclosing) function's scope, even after that outer function has already finished running.
+
+### 📏 Rules
+
+- A closure is created whenever an **inner function is returned (or otherwise escapes) from an outer function** — the inner function keeps a live reference to the outer function's variables.
+- The outer function's variables are **not** re-created on each call to the inner function — they persist in memory as long as the closure exists, forming private, per-instance state.
+- Multiple calls to the outer function create **completely independent closures**, each with its own separate copy of the "remembered" variables.
+- Closures are the mechanism behind private state in JS (before `class` private fields existed) — counters, rate limiters, memoization, retry trackers, etc.
+
+### ⚠️ Exceptions & Gotchas
+
+- **The outer function only runs once** — the closure keeps the *variables*, not the ability to re-run the outer function's setup code every call:
+  ```js
+  function startBrowser() {
+    let name = "edge"; // set up once
+    function installBrowser() {
+      console.log(name); // remembered, even after startBrowser() has returned
+    }
+    return installBrowser;
+  }
+  const runTc = startBrowser(); // startBrowser() runs and finishes here
+  runTc(); // "edge" — installBrowser still has access to `name`
+  ```
+- **Each call to the outer function creates a brand-new, independent closure** — calling `makeCounter()` twice gives two counters with separate state, not a shared one.
+- **Returning multiple functions that close over the same variables lets them share state with each other** (like `increment`/`decrement`/`get` all sharing one `count`), which is how closures simulate private instance variables.
+- A common bug: if a closure is expected to reset each call but the outer function was only called once, the "remembered" variable keeps accumulating instead of resetting — this is a feature, not a bug, but surprises people who expect fresh state every call.
+
+### 🔍 Walkthrough
+
+```js
+// Classic counter — private state via closure
+function makeCounter(start = 0) {
+  let count = start; // "remembered" by all three returned methods
+  return {
+    increment() { count++; },
+    decrement() { count--; },
+    get() { return count; },
+  };
+}
+
+let counter = makeCounter(0);
+counter.increment();
+counter.increment();
+counter.increment();
+console.log(counter.get()); // 3
+counter.decrement();
+console.log(counter.get()); // 2
+
+// Retry tracker — closure persists `attempts` across calls
+function maxRetryTracker(max) {
+  let attempts = 0;
+  function tryAgain(testName) {
+    attempts++;
+    if (attempts > max) {
+      return `${testName} exceeded max retries (${max})`;
+    }
+    return `Attempt ${attempts}/${max} for ${testName}`;
+  }
+  return tryAgain;
+}
+
+let runTCRetry = maxRetryTracker(3);
+console.log(runTCRetry("Login")); // "Attempt 1/3 for Login"
+console.log(runTCRetry("Login")); // "Attempt 2/3 for Login"
+console.log(runTCRetry("Login")); // "Attempt 3/3 for Login"
+console.log(runTCRetry("Login")); // "Login exceeded max retries (3)"
+
+// Rate limiter — same closure pattern, different use case
+function makeRateLimiter(limit) {
+  let calls = 0;
+  function check() {
+    calls++;
+    return calls <= limit;
+  }
+  return check;
+}
+
+let limiter = makeRateLimiter(3);
+console.log(limiter()); // true  (call 1)
+console.log(limiter()); // true  (call 2)
+console.log(limiter()); // true  (call 3)
+console.log(limiter()); // false (call 4 — over the limit)
+```
+
+---
+
 ## ❓ Important Interview Questions
 
 **Q1. What's the difference between a parameter and an argument?**
@@ -176,6 +309,21 @@ During hoisting, the function declaration is hoisted fully (including its body),
 **Q9. Does JavaScript enforce the number of arguments passed to a function?**
 No — calling a function with fewer arguments than parameters simply leaves the missing ones as `undefined` inside the function body; calling with extra arguments just ignores the extras (unless you use `arguments` or rest parameters to access them).
 
+**Q10. What is lexical scope?**
+Scope determined by where code is physically written in the source, not by how or where a function is called. An inner function can always see its outer function's variables because of where it's *defined*, regardless of where it's later invoked from.
+
+**Q11. What is a closure, in simple terms?**
+A function that "remembers" the variables from the scope it was created in, even after that outer scope has finished executing — created whenever an inner function is returned from (or otherwise escapes) an outer function.
+
+**Q12. If you call `makeCounter()` twice, do both counters share the same count?**
+No — each call to `makeCounter()` creates a brand-new, independent closure with its own separate `count` variable. The two counters are completely isolated from each other.
+
+**Q13. Why does `installBrowser()` still work after `startBrowser()` has already finished running?**
+Because `installBrowser` is a closure — it holds a live reference to `startBrowser`'s variables (like `name`), which stay in memory as long as the closure itself exists, regardless of whether the outer function has already returned.
+
+**Q14. How do closures let you simulate "private" variables in JavaScript?**
+A variable declared inside an outer function is never directly accessible from outside it — the only way to read or modify it is through inner functions that close over it and are deliberately exposed (like `increment`/`get` in a counter). This mimics private instance state without needing `class` private fields.
+
 ---
 
 ## ⚡ TL;DR
@@ -186,3 +334,5 @@ No — calling a function with fewer arguments than parameters simply leaves the
 - **Rest** (`...args` in the definition) collects arguments into an array; **spread** (`...array` at the call site) expands an array into arguments — same syntax, opposite direction.
 - **IIFE** — `(function(){...})()` — defines and runs a function once, immediately, in an isolated scope.
 - A **named function expression** can reference itself internally (for recursion) via a name that isn't visible outside the expression.
+- **Scope** flows outward-to-inward only — inner functions can read outer variables, never the reverse.
+- **Closures** let an inner function keep "remembering" its outer function's variables after the outer function has already returned — each outer call creates its own independent closure, which is how counters, rate limiters, and retry trackers hold private, per-instance state.
