@@ -11,7 +11,10 @@ let b = "world";
 // Template literals (backticks) — allows expressions & multiline
 let name1 = "Alice";
 let msg = `Hello, ${name1}! 2 + 2 = ${2 + 2}`;
+let message2=`hello, ${name1}!`;
+
 console.log(msg);
+console.log(message2);
 
 // Multiline
 let report = `
