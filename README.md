@@ -3,7 +3,7 @@
 Personal learning repo for **JavaScript → TypeScript → Playwright**, end to end.
 This README doubles as a running notebook: core language notes, a quick cheat sheet, and a roadmap tying it back to Playwright test automation.
 
-> Progress tracker: `chapter_01_Basic` — JS basics started (`hellowWorld.js`)
+> Progress tracker: `22_OOPs_Inheritance` — JS fundamentals through OOP (basics → control flow → arrays/strings/objects → functions/closures → async → classes/OOP) complete; TypeScript & Playwright stages not started yet.
 
 ---
 
@@ -21,18 +21,28 @@ This README doubles as a running notebook: core language notes, a quick cheat sh
 
 ## Roadmap
 
-| Stage | Topic | Status |
-|---|---|---|
-| 1 | JS basics: variables, types, operators, functions | 🔲 |
-| 2 | JS control flow, loops, arrays, objects | 🔲 |
-| 3 | JS intermediate: destructuring, spread/rest, closures, `this` | 🔲 |
-| 4 | JS async: callbacks, promises, async/await | 🔲 |
-| 5 | JS modules, classes, error handling | 🔲 |
-| 6 | TS basics: types, interfaces, functions | 🔲 |
-| 7 | TS intermediate: generics, unions, utility types | 🔲 |
-| 8 | TS config & tooling (`tsconfig.json`, strict mode) | 🔲 |
-| 9 | Playwright + TS: Page/Locator types, fixtures, POM | 🔲 |
-| 10 | Playwright: assertions, hooks, parallelism, CI | 🔲 |
+| Stage | Topic | Status | Folder(s) |
+|---|---|---|---|
+| 1 | JS basics: identifiers, literals, data types, operators | ✅ | `01_chapter_Basic` → `05_chapter_operator` |
+| 2 | JS control flow: statements, switch, loops | ✅ | `06_chapter_Statement`, `07_chapter_switch`, `09_chapter_Loops` |
+| 3 | User input (Node readline/prompt/fs) | ✅ | `08_chapter_UserInputs` |
+| 4 | Arrays: CRUD, searching, sorting, slicing, copying, destructuring | ✅ | `10_chapter_Arrays` |
+| 5 | Functions & closures | ✅ | `11_chapter_Funtions`, `12_chapter_Fn_Closure` |
+| 6 | Strings: methods, searching, extraction, conversion | ✅ | `13_String` |
+| 7 | Objects & call-by-reference vs call-by-value | ✅ | `14_Objects` |
+| 8 | Multi-dimensional arrays & pattern printing | ✅ | `15_Multi_Dimensions_Array` |
+| 9 | JS async: callbacks, promises, async/await | ✅ | `16_Callback`, `17_Promise`, `18_Async_Await` |
+| 10 | Classes & OOP: constructors, public/private, static | ✅ | `20_Class_Object_OOPs` |
+| 11 | OOP: encapsulation | ✅ | `21_OOPs_Ecapsulation` |
+| 12 | OOP: inheritance | ✅ | `22_OOPs_Inheritance` |
+| 13 | OOP: polymorphism, abstraction, error handling, modules | 🔲 | — |
+| 14 | TS basics: types, interfaces, functions | 🔲 | — |
+| 15 | TS intermediate: generics, unions, utility types | 🔲 | — |
+| 16 | TS config & tooling (`tsconfig.json`, strict mode) | 🔲 | — |
+| 17 | Playwright + TS: Page/Locator types, fixtures, POM | 🔲 | — |
+| 18 | Playwright: assertions, hooks, parallelism, CI | 🔲 | — |
+
+Practice questions live in `00_chapter_Practice/` (Sets 1-4, topic-wise for Set 3+), and interview-style deep dives live in `IQ_Notes/` (one file per topic, currently through Strings).
 
 Mark stages ✅ as you complete them.
 
@@ -211,24 +221,52 @@ export default function bar() {}
 import bar, { foo } from "./file.js";
 ```
 
-### 12. Classes
+### 12. Classes & OOP
 
 ```js
-class Animal {
-  #privateField = "hidden"; // private field
-  constructor(name) {
-    this.name = name;
+// Private (#) vs public fields
+class Credentials {
+  #apiKey;       // private - only accessible inside this class
+  user;          // public - accessible from outside
+  constructor(user, key) {
+    this.user = user;
+    this.#apiKey = key;
   }
-  speak() {
-    return `${this.name} makes a sound.`;
-  }
-}
-class Dog extends Animal {
-  speak() {
-    return `${this.name} barks.`;
+  getAuthHeader() {
+    return "Bearer " + this.#apiKey; // ✅ allowed inside the class
   }
 }
+// cred.#apiKey  // ❌ SyntaxError from outside the class
+
+// Static fields/methods - belong to the class itself, not instances
+class TestRunner {
+  static totalTests = 0;
+  static passCount = 0;
+  constructor(name, passed) {
+    this.name = name;         // instance field
+    TestRunner.totalTests++;  // shared across all instances
+    if (passed) TestRunner.passCount++;
+  }
+}
+new TestRunner("loginTest", true);
+new TestRunner("signupTest", false);
+TestRunner.totalTests; // 2 - tracked on the class, not on any one instance
+
+// Inheritance - extends + super, base for Page Object Model
+class BasePage {
+  constructor(pageName) { this.pageName = pageName; }
+  open() { console.log("Opening the page"); }
+}
+class LoginPage extends BasePage {
+  login(user, pass) { console.log(`Logging in as ${user}`); }
+}
+const page = new LoginPage("Login");
+page.open();   // inherited from BasePage
+page.login("admin", "1234");
 ```
+
+**Encapsulation:** bundle data (`#privateField`) with the methods that operate on it, exposing only what's needed (`getAuthHeader()`) — hides internal state from misuse.
+**Inheritance:** `extends` lets a subclass (`LoginPage`) reuse a parent's behavior (`BasePage`) and add its own — the backbone of the Page Object Model in Playwright.
 
 ### 13. Error Handling
 
