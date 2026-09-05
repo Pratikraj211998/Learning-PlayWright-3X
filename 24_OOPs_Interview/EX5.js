@@ -14,3 +14,5 @@ class C extends B {
     } 
 }
 console.log(new C().who());
+
+// Output: C>B>A
