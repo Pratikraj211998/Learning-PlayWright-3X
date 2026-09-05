@@ -65,3 +65,33 @@
 // Q12. Write a function `makeMultiplier(factor)` that returns a NEW function
 //      which multiplies any number by `factor`. Create `double` and `triple`
 //      from it, and show they behave independently.
+
+
+// ---------- Interview Process (theory + predict-the-output) ----------
+// Answer these in a comment under each one.
+
+// Q13. What's the difference between a function DECLARATION and a function
+//      EXPRESSION when it comes to hoisting?
+
+
+// Q14. Predict the output, then explain why:
+//      console.log(typeof myFunc);
+//      var myFunc = "I am a string";
+//      function myFunc() { return "I am a function"; }
+//      console.log(typeof myFunc);
+
+
+// Q15. Why don't arrow functions have their own `this`? What do they use
+//      instead?
+
+
+// Q16. What is a closure, in your own words? Write a one-line example that
+//      shows a variable being "remembered" after its outer function returns.
+
+
+// Q17. What's the difference between a parameter and an argument?
+
+
+// Q18. Predict the output, then explain why:
+//      (function () { console.log("IIFE ran"); })();
+//      function () { console.log("this one"); }();

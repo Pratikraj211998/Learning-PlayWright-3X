@@ -103,3 +103,27 @@
         default:
             console.log("Fail");
     }
+
+
+// ---------- Interview Process (theory + predict-the-output) ----------
+// Answer these in a comment under each one.
+
+// Q6. Does `switch` use `==` or `===` to compare the expression against each
+//     `case`? What does that mean for `case 5:` when the value is `"5"`?
+
+
+// Q7. Predict the output, then explain why:
+//     switch ("b") {
+//       case "a": console.log("A");
+//       case "b": console.log("B");
+//       case "c": console.log("C"); break;
+//       default: console.log("D");
+//     }
+
+
+// Q8. Why do two `case` blocks declaring the same `let` variable name throw
+//     a SyntaxError, and how do you fix it?
+
+
+// Q9. When would you choose `switch` over `if/else if`, and when is
+//     `if/else if` the better choice instead?

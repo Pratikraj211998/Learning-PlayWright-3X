@@ -85,3 +85,29 @@
 // Q13. Given `let scores = [55, 82, 91, 40, 67, 78];`, write a function that
 //      returns an object with the count of "pass" (>=60) and "fail" (<60)
 //      scores, using only array methods (no manual for loop counters).
+
+
+// ---------- Interview Process (theory + predict-the-output) ----------
+// Answer these in a comment under each one.
+
+// Q14. What's the difference between `.map()` and `.forEach()`? Why can't
+//      you chain another array method after `.forEach()`?
+
+
+// Q15. What's the difference between `.find()` and `.filter()`?
+
+
+// Q16. Predict the output, then explain why:
+//      console.log([1, 2, 3].reduce((acc, n) => acc + n, 0));
+//      console.log([].reduce((acc, n) => acc + n, 0));
+//      console.log([].reduce((acc, n) => acc + n));
+
+
+// Q17. Name 3 array methods that MUTATE the original array, and 3 that do
+//      NOT. How would you check which category a method falls into if
+//      you're unsure?
+
+
+// Q18. Predict the output, then explain why:
+//      console.log(typeof [1, 2, 3]);
+//      console.log(Array.isArray([1, 2, 3]));

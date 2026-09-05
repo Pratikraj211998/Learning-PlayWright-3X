@@ -63,3 +63,26 @@
         }
     }
     console.log(largest);
+
+
+// ---------- Interview Process (theory + predict-the-output) ----------
+// Answer these in a comment under each one.
+
+// Q6. What's the difference between `.slice()` and `.splice()`? Which one
+//     mutates the original array?
+
+
+// Q7. Predict the output, then explain why:
+//     console.log([10, 1, 21, 2].sort());
+
+
+// Q8. Why does `[1, 2] === [1, 2]` evaluate to `false`?
+
+
+// Q9. Predict the output, then explain why:
+//     console.log([1, 2, 3].reduce((acc, n) => acc + n));
+//     console.log([].reduce((acc, n) => acc + n));
+
+
+// Q10. Why is `for...in` generally discouraged for iterating over arrays,
+//      even though it technically works?

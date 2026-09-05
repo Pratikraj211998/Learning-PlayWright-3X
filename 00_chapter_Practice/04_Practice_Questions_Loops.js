@@ -76,3 +76,23 @@
         console.log(line);
     }
 
+
+// ---------- Interview Process (theory + predict-the-output) ----------
+// Answer these in a comment under each one.
+
+// Q6. What's the difference between `for`, `while`, and `do...while`?
+//     Which one guarantees the body runs at least once, and why?
+
+
+// Q7. Predict the output, then explain why:
+//     for (var i = 0; i < 3; i++) { setTimeout(() => console.log(i), 0); }
+//     for (let j = 0; j < 3; j++) { setTimeout(() => console.log(j), 0); }
+
+
+// Q8. What causes a loop to run forever by accident? Give one concrete
+//     example using `while`.
+
+
+// Q9. Why should you use `let` instead of `var` as a loop counter when the
+//     loop body creates a closure (like a callback)?
+

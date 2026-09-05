@@ -161,3 +161,32 @@
     } else {
         console.log("access denied");
     }
+
+
+// ---------- Interview Process (theory + predict-the-output) ----------
+// Answer these in a comment under each one — reason it out like you would
+// out loud in an interview, before running any code to check.
+
+// Q16. Predict the output, then explain why:
+//      let x;
+//      console.log(x ?? "default");
+//      x = 0;
+//      console.log(x ?? "default");
+
+
+// Q17. Why is `typeof null === "object"` considered a long-standing JS bug
+//      rather than intended behavior?
+
+
+// Q18. Predict the output, then explain why (this one is a classic trap):
+//      console.log(1 < 2 < 3);
+//      console.log(3 > 2 > 1);
+
+
+// Q19. What's the difference between `let`, `const`, and `var` in terms of
+//      redeclaration and reassignment? Which one(s) allow which?
+
+
+// Q20. Explain short-circuit evaluation: what does `&&` return when the
+//      first operand is falsy, and what does `||` return when the first
+//      operand is truthy? Do they return `true`/`false`, or something else?

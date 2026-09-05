@@ -42,7 +42,7 @@ This README doubles as a running notebook: core language notes, a quick cheat sh
 | 17 | Playwright + TS: Page/Locator types, fixtures, POM | 🔲 | — |
 | 18 | Playwright: assertions, hooks, parallelism, CI | 🔲 | — |
 
-Practice questions live in `00_chapter_Practice/` (Sets 1-4, topic-wise for Set 3+), and interview-style deep dives live in `IQ_Notes/` (one file per topic, currently through Strings).
+Practice questions live in `00_chapter_Practice/` (Sets 1-4, topic-wise for Set 3+), and interview-style deep dives live in `IQ_Notes/` (one file per topic, currently through OOPs).
 
 Mark stages ✅ as you complete them.
 

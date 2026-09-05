@@ -156,3 +156,31 @@ console.log(5 ==="5"); // it will compare value as will type
     } else {
         console.log(year + " is not a leap year");
     }
+
+
+// ---------- Interview Process (theory + predict-the-output) ----------
+// Answer these in a comment under each one — reason it out like you would
+// out loud in an interview, before running any code to check.
+
+// Q15. What's the actual difference between `null` and `undefined`? Give an
+//      example of when JS gives you each one automatically.
+
+
+// Q16. Predict the output, then explain why:
+//      console.log(typeof NaN);
+//      console.log(NaN === NaN);
+
+
+// Q17. Why does `0.1 + 0.2 === 0.3` return false in JavaScript?
+
+
+// Q18. Predict the output, then explain why:
+//      console.log("5" + 3 - 2);
+
+
+// Q19. What's the difference between `==` and `===`? Give one example where
+//      they produce different results.
+
+
+// Q20. Why can't you use a reserved keyword like `let` or `class` as a
+//      variable name? What actually happens if you try?

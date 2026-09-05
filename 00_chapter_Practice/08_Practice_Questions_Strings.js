@@ -68,3 +68,30 @@
 // Q13. Write a function `truncate(str, maxLength)` that shortens a string to
 //      `maxLength` characters and appends "..." if it was cut off, but
 //      leaves it unchanged if it's already short enough.
+
+
+// ---------- Interview Process (theory + predict-the-output) ----------
+// Answer these in a comment under each one.
+
+// Q14. Are strings mutable or immutable in JavaScript? Prove your answer
+//      with a short example.
+
+
+// Q15. What's the difference between `.slice()` and `.substring()` when
+//      given a negative start index?
+
+
+// Q16. Predict the output, then explain why:
+//      let msg = "a-a-a";
+//      console.log(msg.replace("a", "X"));
+//      console.log(msg);
+
+
+// Q17. Predict the output, then explain why:
+//      console.log("Banana" < "apple");
+
+
+// Q18. Predict the output, then explain why (careful with truthiness):
+//      let str = "hello";
+//      if (str.indexOf("h")) { console.log("found"); } else { console.log("not found"); }
+//      // hint: what index is "h" actually at, and is that index truthy?
